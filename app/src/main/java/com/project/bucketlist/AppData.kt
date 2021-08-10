@@ -15,6 +15,8 @@ class AppData {
             val group1 = Group("Home", mutableListOf(item1, item2))
 
             val group2 = Group("Training", mutableListOf(item3, item4))
+
+            groups = mutableListOf(group1, group2)
         }
 
     }

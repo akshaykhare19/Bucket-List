@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class GroupListAdapter(private val groups: MutableList<Group>,
+class GroupListAdapter(private val groups: List<Group>,
                     private val context: Context): RecyclerView.Adapter<GroupListAdapter.GroupViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
@@ -35,7 +35,7 @@ class GroupListAdapter(private val groups: MutableList<Group>,
 
         fun bind(group: Group){
             groupName!!.text = group.name
-            noOfItems!!.text = Resources.getSystem().getString(group.items.count(), noOfItems)
+            noOfItems!!.text = "${group.items.count()} items"
         }
 
     }
