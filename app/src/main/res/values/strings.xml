@@ -9,5 +9,5 @@
     <string name="hello_world">Hello Square World!</string>
     <string name="add_item">+ Add Item</string>
     <string name="group_name">Group Name</string>
-    <string name="_0_items">0 Items</string>
+    <string name="_0_items">%s Items</string>
 </resources>
