@@ -7,12 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.project.bucketlist.databinding.ActivityGroupsBinding
+import com.project.bucketlist.databinding.GroupRowBinding
 
 class GroupListAdapter(private val groups: List<Group>,
                     private val context: Context): RecyclerView.Adapter<GroupListAdapter.GroupViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
-        val adapterLayout = LayoutInflater.from(context).inflate(R.layout.group_row, parent, false)
+        val adapterLayout =
+            GroupRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
         return GroupViewHolder(adapterLayout)
     }
 
@@ -23,19 +27,11 @@ class GroupListAdapter(private val groups: List<Group>,
 
     override fun getItemCount() = groups.size
 
-    class GroupViewHolder(view: View): RecyclerView.ViewHolder(view) {
-
-        private var groupName: TextView? = null
-        private var noOfItems: TextView? = null
-
-        init {
-            groupName = itemView.findViewById(R.id.group_name)
-            noOfItems = itemView.findViewById(R.id.no_of_items)
-        }
+    class GroupViewHolder(private val binding: GroupRowBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(group: Group){
-            groupName!!.text = group.name
-            noOfItems!!.text = "${group.items.count()} items"
+            binding.groupName!!.text = group.name
+            binding.noOfItems!!.text = "${group.items.count()} items"
         }
 
     }

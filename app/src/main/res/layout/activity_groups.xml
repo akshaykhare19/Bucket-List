@@ -17,6 +17,7 @@
         app:iconSize="20dp"
         android:padding="10dp"
         android:layout_margin="5dp"
+        android:onClick="createNewGroup"
         style="@style/groups_background_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
