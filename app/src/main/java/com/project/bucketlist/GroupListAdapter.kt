@@ -22,17 +22,12 @@ class GroupListAdapter(private val groups: List<Group>,
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         val currentGroup = groups[position]
-        holder.bind(currentGroup)
+        holder.binding.groupName.text = currentGroup.name
+        holder.binding.noOfItems.text = context.getString(R.string._0_items, currentGroup.items.count().toString())
+
     }
 
     override fun getItemCount() = groups.size
 
-    class GroupViewHolder(private val binding: GroupRowBinding): RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(group: Group){
-            binding.groupName!!.text = group.name
-            binding.noOfItems!!.text = "${group.items.count()} items"
-        }
-
-    }
+    class GroupViewHolder(val binding: GroupRowBinding): RecyclerView.ViewHolder(binding.root)
 }

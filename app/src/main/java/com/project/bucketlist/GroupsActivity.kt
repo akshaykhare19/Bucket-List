@@ -2,15 +2,17 @@ package com.project.bucketlist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.text.InputType
 import android.view.View
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.project.bucketlist.databinding.ActivityGroupsBinding
 
 class GroupsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityGroupsBinding
+    private var groupsAdapter: GroupListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,11 +23,42 @@ class GroupsActivity : AppCompatActivity() {
 
         AppData.initializeData()
 
-        binding.groupList.adapter = GroupListAdapter(AppData.groups, this)
+        groupsAdapter = GroupListAdapter(AppData.groups, this)
+        binding.groupList.adapter = groupsAdapter
 
     }
 
-    fun createNewGroup(view: View) {
+    fun createNewGroup(v: View) {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("New Group")
+        builder.setMessage("Enter the name of your new group here!")
+
+        val input = EditText(this)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+
+        builder.setPositiveButton("Save") { dialog, _->
+            val groupName = input.text.toString()
+            val newGroup = Group(groupName, mutableListOf())
+
+            AppData.groups.add(newGroup)
+
+            //notifyDataSetChanged can also be used
+            groupsAdapter!!.notifyItemChanged(AppData.groups.count())
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, _->
+            dialog.dismiss()
+        }
+
+        builder.setCancelable(false)
+
+
+        val dialog = builder.create()
+        dialog.show()
 
     }
+
+
 }
