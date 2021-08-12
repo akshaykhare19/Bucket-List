@@ -11,23 +11,37 @@ import com.project.bucketlist.databinding.ActivityGroupsBinding
 import com.project.bucketlist.databinding.GroupRowBinding
 
 class GroupListAdapter(private val groups: List<Group>,
-                    private val context: Context): RecyclerView.Adapter<GroupListAdapter.GroupViewHolder>() {
+                    private val listener: OnGroupClickListener): RecyclerView.Adapter<GroupListAdapter.GroupViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val adapterLayout =
             GroupRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return GroupViewHolder(adapterLayout)
+        return GroupViewHolder(adapterLayout, parent.context)
     }
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         val currentGroup = groups[position]
-        holder.binding.groupName.text = currentGroup.name
-        holder.binding.noOfItems.text = context.getString(R.string._0_items, currentGroup.items.count().toString())
+        holder.bind(currentGroup)
+
+        holder.itemView.setOnClickListener {
+            listener.groupClicked(position)
+        }
+
+        holder.itemView.setOnLongClickListener {
+            listener.groupLongClicked(position)
+            true
+        }
 
     }
 
     override fun getItemCount() = groups.size
 
-    class GroupViewHolder(val binding: GroupRowBinding): RecyclerView.ViewHolder(binding.root)
+    class GroupViewHolder(private val binding: GroupRowBinding,
+                          private val context: Context): RecyclerView.ViewHolder(binding.root) {
+        fun bind(group: Group){
+            binding.groupName.text = group.name
+            binding.noOfItems.text = context.getString(R.string._0_items, group.items.count().toString())
+        }
+    }
 }

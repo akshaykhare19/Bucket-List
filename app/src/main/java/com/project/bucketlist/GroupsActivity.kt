@@ -1,5 +1,6 @@
 package com.project.bucketlist
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
@@ -9,7 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.bucketlist.databinding.ActivityGroupsBinding
 
-class GroupsActivity : AppCompatActivity() {
+class GroupsActivity : AppCompatActivity(), OnGroupClickListener {
 
     private lateinit var binding: ActivityGroupsBinding
     private var groupsAdapter: GroupListAdapter? = null
@@ -57,6 +58,15 @@ class GroupsActivity : AppCompatActivity() {
 
         val dialog = builder.create()
         dialog.show()
+
+    }
+
+    override fun groupClicked(index: Int) {
+        val intent = Intent(this, ItemsActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun groupLongClicked(index: Int) {
 
     }
 
