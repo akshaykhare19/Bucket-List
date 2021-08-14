@@ -1,17 +1,20 @@
 package com.project.bucketlist
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
+import android.view.KeyEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.bucketlist.databinding.ActivityItemsBinding
 
 class ItemsActivity : AppCompatActivity(), ItemClickListener {
 
     private lateinit var binding: ActivityItemsBinding
-    private lateinit var itemAdapter: ItemsListAdapter
+    private var itemAdapter: ItemsListAdapter? = null
     private lateinit var thisGroup: Group
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +42,25 @@ class ItemsActivity : AppCompatActivity(), ItemClickListener {
         itemAdapter = ItemsListAdapter(thisGroup, this)
         binding.itemList.adapter = itemAdapter
 
+        binding.inputNewItem.setOnKeyListener { view, keyCode, event ->
+            if(keyCode == KeyEvent.KEYCODE_ENTER){
+                if(event.action == KeyEvent.ACTION_DOWN){
+                    val name = binding.inputNewItem.text.toString()
+                    val item = Item(name, false)
+                    thisGroup.items.add(item)
+                    itemAdapter!!.notifyItemInserted(thisGroup.items.count())
+                    binding.inputNewItem.text.clear()
+
+                    //to remove keyboard on entering the enter key
+                    val inputManager =
+                            getSystemService(Activity.INPUT_METHOD_SERVICE)
+                                as InputMethodManager
+                    inputManager.hideSoftInputFromWindow(view.windowToken, 0)
+                }
+            }
+
+            false
+        }
 
     }
 
@@ -50,11 +72,12 @@ class ItemsActivity : AppCompatActivity(), ItemClickListener {
 
     override fun itemClicked(index: Int) {
         thisGroup.items[index].isCompleted = !(thisGroup.items[index].isCompleted)
-        itemAdapter.notifyDataSetChanged()
+        itemAdapter!!.notifyDataSetChanged()
     }
 
     override fun itemLongClicked(index: Int) {
-
+        thisGroup.items.removeAt(index)
+        itemAdapter!!.notifyItemRemoved(index)
     }
 
 }

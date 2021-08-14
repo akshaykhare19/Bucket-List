@@ -29,6 +29,13 @@ class GroupsActivity : AppCompatActivity(), GroupClickListener {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        //updates the groups activity with no. of items in it
+        groupsAdapter!!.notifyDataSetChanged()
+    }
+
     fun createNewGroup(v: View) {
 
         val builder = AlertDialog.Builder(this)
@@ -70,7 +77,9 @@ class GroupsActivity : AppCompatActivity(), GroupClickListener {
     }
 
     override fun groupLongClicked(index: Int) {
-        //Delete the group
+        //deletes the group
+        AppData.groups.removeAt(index)
+        groupsAdapter!!.notifyItemRemoved(index)
     }
 
 

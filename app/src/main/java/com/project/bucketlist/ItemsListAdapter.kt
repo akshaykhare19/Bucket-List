@@ -20,6 +20,7 @@ class ItemsListAdapter(private val group: Group,
         val currentItem = group.items[position]
         holder.bind(currentItem)
 
+
         holder.itemView.setOnClickListener {
             listener.itemClicked(position)
         }
@@ -35,9 +36,11 @@ class ItemsListAdapter(private val group: Group,
 }
 
 class ItemsViewHolder(private val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(toDoItem: Item){
         binding.item.text = toDoItem.name
         binding.itemCheck.isChecked = toDoItem.isCompleted
+
 
         if(binding.itemCheck.isChecked){
             //to make the text strike-through
@@ -46,5 +49,6 @@ class ItemsViewHolder(private val binding: ItemRowBinding) : RecyclerView.ViewHo
             strikeText.setSpan(strikeThroughSpan, 0, binding.item.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
             binding.item.text = strikeText
         }
+
     }
 }
