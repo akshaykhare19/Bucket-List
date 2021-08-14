@@ -5,9 +5,11 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.bucketlist.databinding.ActivityItemsBinding
 
-class ItemsActivity : AppCompatActivity() {
+class ItemsActivity : AppCompatActivity(), ItemClickListener {
 
     private lateinit var binding: ActivityItemsBinding
+    private lateinit var itemAdapter: ItemsListAdapter
+    private lateinit var thisGroup: Group
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,7 +17,7 @@ class ItemsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val selectedIndex = intent.getIntExtra("groupIndex", 0)
-        val thisGroup = AppData.groups[selectedIndex]
+        thisGroup = AppData.groups[selectedIndex]
 
         //sets textView on the toolbar to the group name
         binding.groupName.text = thisGroup.name
@@ -30,7 +32,8 @@ class ItemsActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         binding.itemList.layoutManager = LinearLayoutManager(this)
-        binding.itemList.adapter = ItemsListAdapter(thisGroup)
+        itemAdapter = ItemsListAdapter(thisGroup, this)
+        binding.itemList.adapter = itemAdapter
 
 
     }
@@ -39,5 +42,14 @@ class ItemsActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun itemClicked(index: Int) {
+        thisGroup.items[index].isCompleted = !(thisGroup.items[index].isCompleted)
+        itemAdapter.notifyDataSetChanged()
+    }
+
+    override fun itemLongClicked(index: Int) {
+
     }
 }

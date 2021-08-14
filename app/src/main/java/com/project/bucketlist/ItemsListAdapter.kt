@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.project.bucketlist.databinding.ItemRowBinding
 
-class ItemsListAdapter(private val group: Group): RecyclerView.Adapter<ItemsViewHolder>() {
+class ItemsListAdapter(private val group: Group,
+                    private val listener: ItemClickListener): RecyclerView.Adapter<ItemsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemsViewHolder {
         val adapterLayout =
                 ItemRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -15,6 +16,16 @@ class ItemsListAdapter(private val group: Group): RecyclerView.Adapter<ItemsView
     override fun onBindViewHolder(holder: ItemsViewHolder, position: Int) {
         val currentItem = group.items[position]
         holder.bind(currentItem)
+
+        holder.itemView.setOnClickListener {
+            listener.itemClicked(position)
+        }
+
+        holder.itemView.setOnLongClickListener {
+            listener.itemLongClicked(position)
+            true
+        }
+
     }
 
     override fun getItemCount() = group.items.size

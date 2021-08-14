@@ -1,17 +1,13 @@
 package com.project.bucketlist
 
 import android.content.Context
-import android.content.res.Resources
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.project.bucketlist.databinding.ActivityGroupsBinding
 import com.project.bucketlist.databinding.GroupRowBinding
 
 class GroupListAdapter(private val groups: List<Group>,
-                    private val listener: OnGroupClickListener): RecyclerView.Adapter<GroupListAdapter.GroupViewHolder>() {
+                    private val listener: GroupClickListener): RecyclerView.Adapter<GroupListAdapter.GroupViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val adapterLayout =

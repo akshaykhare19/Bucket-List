@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.bucketlist.databinding.ActivityGroupsBinding
 
-class GroupsActivity : AppCompatActivity(), OnGroupClickListener {
+class GroupsActivity : AppCompatActivity(), GroupClickListener {
 
     private lateinit var binding: ActivityGroupsBinding
     private var groupsAdapter: GroupListAdapter? = null
