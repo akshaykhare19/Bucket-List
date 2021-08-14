@@ -2,6 +2,7 @@ package com.project.bucketlist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.bucketlist.databinding.ActivityItemsBinding
 
 class ItemsActivity : AppCompatActivity() {
@@ -27,6 +28,11 @@ class ItemsActivity : AppCompatActivity() {
 
         //to remove activity title from the toolbar
         supportActionBar!!.setDisplayShowTitleEnabled(false)
+
+        binding.itemList.layoutManager = LinearLayoutManager(this)
+        binding.itemList.adapter = ItemsListAdapter(thisGroup)
+
+
     }
 
     //for back button on the toolbar
