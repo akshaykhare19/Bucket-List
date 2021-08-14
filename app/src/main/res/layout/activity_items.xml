@@ -3,6 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ItemsActivity">
@@ -25,7 +27,8 @@
             android:text="@string/group_name"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:gravity="center_horizontal"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -34,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/add_item"
+        android:inputType="text"
         android:textAlignment="center"
         android:textSize="18sp"
         android:padding="10dp"

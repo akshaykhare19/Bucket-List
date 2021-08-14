@@ -63,11 +63,14 @@ class GroupsActivity : AppCompatActivity(), OnGroupClickListener {
 
     override fun groupClicked(index: Int) {
         val intent = Intent(this, ItemsActivity::class.java)
+
+        intent.putExtra("groupIndex", index)
+
         startActivity(intent)
     }
 
     override fun groupLongClicked(index: Int) {
-
+        //Delete the group
     }
 
 
