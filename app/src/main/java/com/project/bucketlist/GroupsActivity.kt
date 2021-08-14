@@ -70,10 +70,12 @@ class GroupsActivity : AppCompatActivity(), GroupClickListener {
 
     override fun groupClicked(index: Int) {
         val intent = Intent(this, ItemsActivity::class.java)
-
         intent.putExtra("groupIndex", index)
-
         startActivity(intent)
+
+        //adding transition animation
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
     }
 
     override fun groupLongClicked(index: Int) {

@@ -70,6 +70,12 @@ class ItemsActivity : AppCompatActivity(), ItemClickListener {
         return true
     }
 
+    override fun finish() {
+        super.finish()
+
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
     override fun itemClicked(index: Int) {
         thisGroup.items[index].isCompleted = !(thisGroup.items[index].isCompleted)
         itemAdapter!!.notifyDataSetChanged()
