@@ -13,8 +13,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_margin="5dp"
+        android:padding="3dp"
         android:background="@color/teal_200"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -25,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/group_name"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textAlignment="center"
             android:gravity="center_horizontal"/>
